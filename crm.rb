@@ -45,7 +45,12 @@ class CRM < Contact
     email = gets.chomp
     puts "note"
     note = gets.chomp
-  Contact.create(first_name, last_name, email, note)
+    contact = Contact.create(
+      first_name: first_name,
+      last_name:  last_name,
+      email:      email,
+      note:       note
+    )
   end
 
   def modify_existing_contact
@@ -75,11 +80,26 @@ class CRM < Contact
   def search_by_attribute
     puts "Enter attribute you want to search by"
     attribute = gets.chomp
-    puts ""
+    if attribute == "first_name"
+      found_contact = Contact.find(first_name)
+      p found_contact
+    elsif attribute == "last_name"
+      found_contact = Contact.find(last_name)
+      p found_contact
+    elsif attribute == "email"
+      found_contact = Contact.find(email)
+      p found_contact
+    elsif attribute == "note"
+      found_contact = Contact.find(note)
+      p found_contact
+    end
     
   end
 
 
+end
+at_exit do
+  ActiveRecord::Base.connection.close
 end
 
 a = CRM.new
